@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       create: (_) => FirestoreDatabase(),
       child: MaterialApp(
         title: 'ADV App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
