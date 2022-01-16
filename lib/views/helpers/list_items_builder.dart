@@ -5,7 +5,7 @@ import 'empty_content.dart';
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
 class ListItemsBuilder<T> extends StatelessWidget {
-  const ListItemsBuilder({
+  ListItemsBuilder({
     required this.snapshot,
     required this.itemBuilder,
   });
@@ -19,22 +19,22 @@ class ListItemsBuilder<T> extends StatelessWidget {
       if (items.isNotEmpty) {
         return _buildList(items);
       } else {
-        return EmptyContent();
+        return const EmptyContent();
       }
     } else if (snapshot.hasError) {
       print(snapshot.error);
-      return EmptyContent(
+      return const EmptyContent(
         title: 'Something went wrong',
         message: 'Can\'t load items right now',
       );
     }
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
   }
 
   Widget _buildList(List<T> items) {
     return ListView.separated(
       itemCount: items.length + 2,
-      separatorBuilder: (context, index) => Divider(height: 0.5),
+      separatorBuilder: (context, index) => const Divider(height: 0.5),
       itemBuilder: (context, index) {
         if (index == 0 || index == items.length + 1) {
           return Container();

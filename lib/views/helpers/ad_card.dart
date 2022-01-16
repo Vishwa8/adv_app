@@ -16,7 +16,7 @@ class AdCard extends StatelessWidget {
         child: Card(
           elevation: 10,
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Row(
               children: [
                 Container(
@@ -25,16 +25,14 @@ class AdCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: 100,
                     width: 100,
-                  ) : Container(
-                    child: Image.asset(
+                  ) : Image.asset(
                       "assets/images/no_image.png",
                       fit: BoxFit.cover,
                       height: 100,
                       width: 100,
                     ),
-                  ),
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -42,7 +40,7 @@ class AdCard extends StatelessWidget {
                       "${ad.name}",
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Text(
                       "${ad.price} LKR",
                       style: Theme.of(context).textTheme.subtitle1,

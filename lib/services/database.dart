@@ -19,11 +19,13 @@ abstract class Database {
 
 class FirestoreDatabase implements Database {
 
+  @override
   Future<void> createAd(Ad ad) async => await _addData(
         path: APIPath.ads(),
         data: ad.toMap(),
       );
 
+  @override
   Future<void> updateAd(Ad ad, String adId) async => await _updateData(
     path: APIPath.ads(),
     data: ad.toMap(),
@@ -42,6 +44,7 @@ class FirestoreDatabase implements Database {
     builder: (data, documentId) => Ad.fromMap(data, documentId),
   );
 
+  @override
   Stream<List<Ad>> adsStream() {
     final path = APIPath.ads();
     final reference = FirebaseFirestore.instance.collection(path);
@@ -51,6 +54,7 @@ class FirestoreDatabase implements Database {
         snapshot.docs.map((snapshot) => Ad.fromMap(snapshot.data, snapshot.id)).toList());
   }
 
+  @override
   Stream<List<Ad>> filteredAdsStream(double min, double max) {
     final path = APIPath.ads();
     final reference = FirebaseFirestore.instance.collection(path).where("price", isGreaterThan: min).where("price", isLessThan: max);
@@ -58,6 +62,28 @@ class FirestoreDatabase implements Database {
 
     return snapshots.map((snapshot) =>
         snapshot.docs.map((snapshot) => Ad.fromMap(snapshot.data, snapshot.id)).toList());
+  }
+
+  @override
+  void deleteImages(List? imagesUrls) async {
+    if (imagesUrls != null ) {
+      for(var img in imagesUrls) {
+        await FirebaseStorage.instance.refFromURL(img)
+            .delete()
+            .then((_) => {print('Successfully deleted $img storage item' )});
+      }
+    }
+  }
+
+  @override
+  Future<String> uploadImage(XFile image) async {
+    Reference reference =  FirebaseStorage.instance.ref().child("ADVImages").child("${DateTime.now().toString()}/${image.name}");
+    UploadTask uploadTask = reference.putFile(File(image.path));
+    await uploadTask.whenComplete(() {
+      print(reference.getDownloadURL());
+    });
+
+    return await reference.getDownloadURL();
   }
 
   Future<void> _addData({required String path, required Map<String, dynamic> data}) async {
@@ -77,26 +103,6 @@ class FirestoreDatabase implements Database {
     final reference = FirebaseFirestore.instance.doc(path);
     deleteImages(imagesUrls);
     await reference.delete();
-  }
-
-  void deleteImages(List? imagesUrls) async {
-    if (imagesUrls != null ) {
-      for(var img in imagesUrls) {
-        await FirebaseStorage.instance.refFromURL(img)
-            .delete()
-            .then((_) => {print('Successfully deleted $img storage item' )});
-      }
-    }
-  }
-
-  Future<String> uploadImage(XFile image) async {
-    Reference reference =  FirebaseStorage.instance.ref().child("ADVImages").child("${DateTime.now().toString()}/${image.name}");
-    UploadTask uploadTask = reference.putFile(File(image.path));
-    await uploadTask.whenComplete(() {
-      print(reference.getDownloadURL());
-    });
-
-    return await reference.getDownloadURL();
   }
 
   Stream<T> documentStream<T>({

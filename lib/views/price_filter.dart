@@ -35,7 +35,7 @@ class PriceFilter extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: _buildContents(context),
         ),
       ),

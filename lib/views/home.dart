@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        margin: EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(4),
                       ),
                       InkWell(
                         onTap: () => _submit(context, "low"),

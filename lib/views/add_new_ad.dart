@@ -134,9 +134,9 @@ class AddNewAd extends StatelessWidget {
         SingleChildScrollView(
           child: Card(
             elevation: 10,
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   _buildForm(),
@@ -168,7 +168,7 @@ class AddNewAd extends StatelessWidget {
                           crossAxisCount: 3),
                       itemBuilder: (context, index) {
                         return Container(
-                          padding: EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(2),
                           child: Image.file(
                             File(_imageFileList[index].path),
                             fit: BoxFit.cover,
@@ -186,17 +186,15 @@ class AddNewAd extends StatelessWidget {
             ? Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  child: const Text(
+              children: const [
+                Text(
                     'uploading...',
                     style: TextStyle(fontSize: 20),
                   ),
-                ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                const CircularProgressIndicator(),
+                CircularProgressIndicator(),
               ],
             ))
             : Container(),

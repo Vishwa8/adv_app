@@ -229,17 +229,15 @@ class EditAd extends StatelessWidget {
             ? Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  child: const Text(
+              children: const [
+                Text(
                     'uploading...',
                     style: TextStyle(fontSize: 20),
                   ),
-                ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                const CircularProgressIndicator(),
+                CircularProgressIndicator(),
               ],
             ))
             : Container(),

@@ -1,5 +1,12 @@
 class Ad {
-  Ad({this.adId, this.imageUrls, required this.name, required this.price, required this.description, required this.lastModified});
+  Ad({
+    this.adId,
+    this.imageUrls,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.lastModified,
+  });
 
   String name;
   String? adId;
@@ -27,12 +34,12 @@ class Ad {
     final List? imageUrls = data()['imageUrls'];
 
     return Ad(
-        adId: adId,
-        name: name,
-        price: price,
-        description: description,
-        lastModified: lastModified,
-        imageUrls: imageUrls,
+      adId: adId,
+      name: name,
+      price: price,
+      description: description,
+      lastModified: lastModified,
+      imageUrls: imageUrls,
     );
   }
 }
